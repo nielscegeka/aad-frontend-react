@@ -1,35 +1,23 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Typography, type SxProps, type Theme } from "@mui/material";
+import "./App.css";
+import Navbar from "./components/Navbar.tsx";
+import Search from "./components/Search.tsx";
 
-function App() {
-  const [count, setCount] = useState(0)
+export default function App() {
+  const introStyle: SxProps<Theme> = {
+    fontFamily: "'Merienda', cursive",
+    color: "#2b332b",
+    margin: "5%",
+  };
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Navbar />
+      <Typography variant="h6" sx={introStyle}>
+        Welkom in de jungle, wie door het bos de bomen wilt zoeken kan gebruik maken van onze encyclopedie. Zoek een dier en laat Azure zijn magie maar doen.
+      </Typography>
+      <Search />
     </>
   )
-}
+};
 
-export default App
