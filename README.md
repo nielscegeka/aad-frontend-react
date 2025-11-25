@@ -4,7 +4,7 @@ Deze applicatie is gemaakt om onze creatie te laten zien aan de buitenwereld. Di
 de zoekopdrachten gaat voltooien met AI maar de rest is een mysterie.
 
 De call bijvoorbeeld voor het ophalen van een image: <br>
-url?animal=xxx
+Input: url?animal=xxx <br>
 Output: "data": [{ "image": "data:image/png;base64," + base64 }]
 
 Dit was het snelste om op te zetten binnen azure met een beperkt stappenplan: <br>
