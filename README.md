@@ -1,73 +1,16 @@
-# React + TypeScript + Vite
+Azure Animal Directory - Technical Meetup 27/11/2025
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Deze applicatie is gemaakt om onze creatie te laten zien aan de buitenwereld. Dit zorgt ervoor dat je kan aanmelden via Entra ID (Cegeka account is voldoende) en gebruik kunt maken van onze dieren wiki. Deze applicatie roept achterliggend een Spring Boot API aan die achterliggend
+de zoekopdrachten gaat voltooien met AI maar de rest is een mysterie.
 
-Currently, two official plugins are available:
+De call bijvoorbeeld voor het ophalen van een image: <br>
+url?animal=xxx
+Output: "data": [{ "image": "data:image/png;base64," + base64 }]
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Dit was het snelste om op te zetten binnen azure met een beperkt stappenplan: <br>
+1. Maak binnen Azure een Static Web App aan, kies deployment via token.
+2. npm i && npm run build (Dit gaat een ./dist folder aanmaken met alles in wat je nodig hebt.)
+3. npm i -g @azure/static-web-apps-cli (Eenmalige installatie nodig door de -g parameter, anders moet je -D doen voor enkel dit project)
+4. swa deploy ./dist --app-name <static-web-app-name> --env production --deployment-token <token>
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Binnen de Static Web App vindt je de URL van je nieuw gebouwde app en normaal zit daar nu ook je nieuwe frontend.

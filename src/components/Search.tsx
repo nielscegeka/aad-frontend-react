@@ -19,9 +19,9 @@ export default function Search() {
         console.log(isLoading, isFailed);
     };
     
-    const textStyle: SxProps<Theme> = {
-        fontFamily: "'Merienda', cursive",
-    };
+    // const textStyle: SxProps<Theme> = {
+    //     fontFamily: "'Merienda', cursive",
+    // };
 
     const skeletonStyle: SxProps<Theme> = {
         marginBottom: "10px",
