@@ -11,6 +11,6 @@ Dit was het snelste om op te zetten binnen azure met een beperkt stappenplan: <b
 1. Maak binnen Azure een Static Web App aan, kies deployment via token.
 2. npm i && npm run build (Dit gaat een ./dist folder aanmaken met alles in wat je nodig hebt.)
 3. npm i -g @azure/static-web-apps-cli (Eenmalige installatie nodig door de -g parameter, anders moet je -D doen voor enkel dit project)
-4. swa deploy ./dist --app-name <static-web-app-name> --env production --deployment-token <token>
+4. swa deploy ./dist --app-name 'static-web-app-name' --env production --deployment-token 'token'
 
 Binnen de Static Web App vindt je de URL van je nieuw gebouwde app en normaal zit daar nu ook je nieuwe frontend.
