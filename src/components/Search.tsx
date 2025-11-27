@@ -1,4 +1,4 @@
-import { Box, IconButton, Skeleton, TextField, type SxProps, type Theme } from "@mui/material";
+import { Box, IconButton, Skeleton, TextField, Typography, type SxProps, type Theme } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import React from "react";
 import { fetchAnimalImage } from "../services/ImageService";
@@ -8,6 +8,9 @@ export default function Search() {
     const [isFailed, setFailed] = React.useState<boolean>(false);
     const [animalName, setAnimalName] = React.useState<string>("");
     const [imageSrc, setImageSrc] = React.useState<string | null>(null);
+    const [waitTime, setWaitTime] = React.useState<number>(0);
+
+    const timerRef = React.useRef<number>(null);
 
     const skeletonStyle: SxProps<Theme> = {
         marginBottom: "10px",
@@ -31,6 +34,12 @@ export default function Search() {
     const flexBoxStyle: SxProps<Theme> = {
         display: "flex",
         justifyContent: "center",
+        flexDirection: "column"
+    };
+
+    const textStyle: SxProps<Theme> = {
+        fontFamily: "'Merienda', cursive",
+        color: "#2b332b",
     };
 
     const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,6 +54,11 @@ export default function Search() {
         setLoading(true);
         setFailed(false);
         setImageSrc(null);
+        setWaitTime(0);
+
+        timerRef.current = setInterval(() => {
+            setWaitTime((t) => t + 1);
+        }, 1000);
 
         const image = await fetchAnimalImage(animalName);
         if (image) {
@@ -52,6 +66,7 @@ export default function Search() {
         } else {
             setFailed(true);
         }
+        clearInterval(timerRef.current);
         setLoading(false);
     };
 
@@ -69,6 +84,9 @@ export default function Search() {
                     <>
                         <Box sx={flexBoxStyle}>
                             <Skeleton variant="rectangular" sx={skeletonStyle} />
+                            <Typography sx={textStyle}>
+                                AI is de dag van vandaag toch wat trager, je bent al {waitTime} seconden aan het wachten.
+                            </Typography>
                         </Box>
                     </>
                 }
