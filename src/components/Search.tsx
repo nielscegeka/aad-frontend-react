@@ -1,27 +1,13 @@
 import { Box, IconButton, Skeleton, TextField, type SxProps, type Theme } from "@mui/material";
 import SearchIcon from '@mui/icons-material/Search';
 import React from "react";
+import { fetchAnimalImage } from "../services/ImageService";
 
 export default function Search() {
     const [isLoading, setLoading] = React.useState<boolean>(false);
     const [isFailed, setFailed] = React.useState<boolean>(false);
-
-    function toggleState(): void {
-        if (!isLoading && !isFailed) {
-            setLoading(true); 
-        } else if(isLoading && !isFailed) {
-            setLoading(false);
-            setFailed(true);
-        } else if(!isLoading && isFailed) {
-            setLoading(true);
-            setFailed(false);
-        }
-        console.log(isLoading, isFailed);
-    };
-    
-    // const textStyle: SxProps<Theme> = {
-    //     fontFamily: "'Merienda', cursive",
-    // };
+    const [animalName, setAnimalName] = React.useState<string>("");
+    const [imageSrc, setImageSrc] = React.useState<string | null>(null);
 
     const skeletonStyle: SxProps<Theme> = {
         marginBottom: "10px",
@@ -47,27 +33,54 @@ export default function Search() {
         justifyContent: "center",
     };
 
+    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setAnimalName(event.target.value);
+    };
+
+    const handleSearch = async () => {
+        if (!animalName) {
+            return;
+        }
+
+        setLoading(true);
+        setFailed(false);
+        setImageSrc(null);
+
+        const image = await fetchAnimalImage(animalName);
+        if (image) {
+            setImageSrc(image);
+        } else {
+            setFailed(true);
+        }
+        setLoading(false);
+    };
+
     return (
         <>
-            <TextField label="Zoek een dier" id="search" type="search" sx={boxStyle}
+            <TextField label="Zoek een dier" id="search" type="search" sx={boxStyle} value={animalName} onChange={handleSearchChange}
+                onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                 slotProps={{
                     input: {
-                        startAdornment: <IconButton onClick={toggleState}><SearchIcon sx={{ color: 'action.active', mr: 1 }} /></IconButton>
+                        startAdornment: <IconButton onClick={handleSearch}><SearchIcon sx={{ color: 'action.active', mr: 1 }} /></IconButton>
                     }}} />        
             <Box sx={boxStyle}>
-                { isLoading ? 
+                {
+                    isLoading && 
                     <>
                         <Box sx={flexBoxStyle}>
                             <Skeleton variant="rectangular" sx={skeletonStyle} />
                         </Box>
-                        <Skeleton width="90%" />
-                        <Skeleton width="75%" />
                     </>
-                : isFailed ? 
+                }
+                {
+                    isFailed &&
                     <Box sx={flexBoxStyle}>
                         <Box component="img" src="/fallback.png" alt="not-found" sx={imageStyle} />
                     </Box>
-                : <p>Search result</p>
+                }
+                {
+                    imageSrc &&
+                    <img src={imageSrc} alt={animalName} style={{ maxWidth: "100%" }} />
                 }
             </Box>
         </>
