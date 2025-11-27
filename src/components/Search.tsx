@@ -14,7 +14,7 @@ export default function Search() {
 
     const skeletonStyle: SxProps<Theme> = {
         marginBottom: "10px",
-        width: "450px",
+        width: "100%",
         height: "225px",
     };
 
@@ -22,19 +22,24 @@ export default function Search() {
         marginBottom: "10px",
         width: "90%",
         maxWidth: "425px",
+        maxHeight: "500px",
+        marginLeft: "auto",
+        marginRight: "auto",
     };
 
     const boxStyle: SxProps<Theme> = {
       marginLeft: "5%",
       marginRight: "5%",
-      marginBottom: "5%",
+      marginBottom: { xs: "5%", sm: "2.5%", md: "2%", lg: "1%" },
       width: "90%",
     };
 
     const flexBoxStyle: SxProps<Theme> = {
         display: "flex",
-        justifyContent: "center",
-        flexDirection: "column"
+        flexDirection: "column",
+        justifyContent: "flex-start",
+        width: { sm: "100%" },
+        alignItems: { sm: "center" },
     };
 
     const textStyle: SxProps<Theme> = {
@@ -98,7 +103,10 @@ export default function Search() {
                 }
                 {
                     imageSrc &&
-                    <img src={imageSrc} alt={animalName} style={{ maxWidth: "100%" }} />
+                    <Box sx={flexBoxStyle}>
+                        <img src={imageSrc} alt={animalName} 
+                            style={{ maxWidth: "540px", maxHeight: "480px" }} />
+                    </Box>
                 }
             </Box>
         </>

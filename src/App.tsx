@@ -7,7 +7,10 @@ export default function App() {
   const introStyle: SxProps<Theme> = {
     fontFamily: "'Merienda', cursive",
     color: "#2b332b",
-    margin: "5%",
+    marginTop: { xs: "5%", lg: "3%" },
+    marginBottom: { xs: "5%", lg: "3%" },
+    marginLeft: "5%",
+    marginRight: "5%",
   };
 
   return (
